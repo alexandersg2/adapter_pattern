@@ -34,7 +34,7 @@ class WebReport:
 
 class PDFReportAdapter(WebReport):
     # Write an adapter class to adapt the PDFReport class
-    # You'll need to "convert" the data - use a print statement: print("Converted json to xml")
+    # You'll need to "convert" the data (change "JSON" to "XML" and "Django" to "Jinja" in the strings)
     # Also, notice that some of the method names in WebReport and PDFReport are different
     ...
 
@@ -66,8 +66,8 @@ def main():
     report_client.render_report(web_report)
 
     print("\nGenerating a PDF report")
-    xml_content = "<Some interesting XML content>"
-    jinja_template = "<A rather pretty Jinja template>"
+    json_content = "<Some interesting JSON content>"
+    django_template = "<A rather pretty Django template>"
     # Generate a PDF report here, using your new adapter class
 
 
