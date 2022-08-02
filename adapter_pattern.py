@@ -1,7 +1,4 @@
 class SMSMessage:
-    def __init__(self):
-        self.phone_number = None
-        self.body = ""
     
     def set_phone_number(self, phone_number):
         self.phone_number = phone_number
@@ -19,10 +16,6 @@ class SMSMessage:
 
 
 class Email:
-    def __init__(self):
-        self.recipient = None
-        self.subject = ""
-        self.body = ""
 
     def set_recipient(self, recipient):
         self.recipient = recipient
