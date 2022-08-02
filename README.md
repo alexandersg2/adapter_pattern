@@ -4,7 +4,7 @@ The Adapter pattern is a structural design pattern that allows objects with inco
 
 It allows you to create a middle-layer "adapter" class that acts as a translator between your code and a class with an incompatible interface.
 
-Use the Adapter class when you want to use an existing, unmodifiable class, but its interface isn’t compatible with the rest of your code.
+Use the Adapter class when you want to use an existing, unmodifiable class, but its interface isn’t compatible with the rest of your code. It's often useful when working with 3rd-party libraries.
 
 ### Pros:
 - Single Responsibility Principle - You can separate the interface or data conversion code from the primary business logic of the program.
