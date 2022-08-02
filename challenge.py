@@ -41,21 +41,21 @@ class PDFReportAdapter(WebReport):
 
 class ReportClient:
 
-    def build_report(self, report, content, template) -> WebReport:
+    def build_report(report, content, template) -> WebReport:
         report.set_content(content)
         report.set_template(template)
 
         return report
 
     
-    def render_report(self, report: WebReport):
+    def render_report(report: WebReport):
         return report.render()
 
 
 def main():
     print("Data has arrived, generating reports!!")
 
-    report_client = ReportClient()
+    report_client = ReportClient
 
     print("\nGenerating a Web report")
     web_report = report_client.build_report(

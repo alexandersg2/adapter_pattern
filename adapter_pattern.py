@@ -57,7 +57,7 @@ class SMSMessageAdapter(Email):
 
 class NotificationClient:
 
-    def build_notification(self, notification, recipient, subject, body) -> Email:
+    def build_notification(notification, recipient, subject, body) -> Email:
         notification.set_recipient(recipient)
         notification.set_subject(subject)
         notification.set_body(body)
@@ -65,14 +65,14 @@ class NotificationClient:
         return notification
 
     
-    def send_notification(self, notification: Email):
+    def send_notification(notification: Email):
         return notification.send()
 
 
 def main():
     print("Something has happened, notifying the user!")
 
-    notification_client = NotificationClient()
+    notification_client = NotificationClient
 
     print("\nSending an email")
     email = notification_client.build_notification(
