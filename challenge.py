@@ -66,14 +66,9 @@ def main():
     report_client.render_report(web_report)
 
     print("\nGenerating a PDF report")
+    xml_content = "<Some interesting XML content>"
+    jinja_template = "<A rather pretty Jinja template>"
     # Generate a PDF report here, using your new adapter class
-    # Create your adapter instance here
-    # pdf_report = report_client.build_report(
-    #     # pass your adapter here,
-    #     "<Some interesting XML content>",
-    #     "<A rather pretty Jinja template>",
-    # )
-    # report_client.render_report(pdf_report)
 
 
 if __name__ == "__main__":
