@@ -15,7 +15,18 @@ class PDFReport:
         )
 
 
-class WebReport:
+class BaseReport:
+    def set_content(self, content):
+        ...
+    
+    def set_template(self, template):
+        ...
+    
+    def render(self):
+        ...
+
+
+class WebReport(BaseReport):
 
     def set_content(self, json_content):
         self.json_content = json_content
@@ -32,7 +43,7 @@ class WebReport:
         )
 
 
-class PDFReportAdapter(WebReport):
+class PDFReportAdapter(BaseReport):
     # Write an adapter class to adapt the PDFReport class
     # You'll need to "convert" the data (change "JSON" to "XML" and "Django" to "Jinja" in the strings)
     # Also, notice that some of the method names in WebReport and PDFReport are different
@@ -41,34 +52,34 @@ class PDFReportAdapter(WebReport):
 
 class ReportClient:
 
-    def build_report(report, content, template) -> WebReport:
+    def build_report(report, content, template) -> BaseReport:
         report.set_content(content)
         report.set_template(template)
 
         return report
 
     
-    def render_report(report: WebReport):
+    def render_report(report: BaseReport):
         return report.render()
 
 
 def main():
     print("Data has arrived, generating reports!!")
 
-    report_client = ReportClient
+    json_content = "<Some awesome JSON content>"
+    django_template = "<A really beautiful Django Template>"
 
     print("\nGenerating a Web report")
-    web_report = report_client.build_report(
+    web_report = ReportClient.build_report(
         WebReport(),
-        "<Some awesome JSON content>",
-        "<A really beautiful Django Template>",
+        json_content,
+        django_template,
     )
-    report_client.render_report(web_report)
+    ReportClient.render_report(web_report)
 
     print("\nGenerating a PDF report")
-    json_content = "<Some interesting JSON content>"
-    django_template = "<A rather pretty Django template>"
     # Generate a PDF report here, using your new adapter class
+    # Pass the same json_content and django_template to it. It should convert them to xml and jinja respectively.
 
 
 if __name__ == "__main__":

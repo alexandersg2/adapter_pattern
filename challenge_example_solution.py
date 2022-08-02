@@ -15,7 +15,18 @@ class PDFReport:
         )
 
 
-class WebReport:
+class BaseReport:
+    def set_content(self, content):
+        ...
+    
+    def set_template(self, template):
+        ...
+    
+    def render(self):
+        ...
+
+
+class WebReport(BaseReport):
 
     def set_content(self, json_content):
         self.json_content = json_content
@@ -32,30 +43,20 @@ class WebReport:
         )
 
 
-class PDFReportAdapter(WebReport):
+class PDFReportAdapter(BaseReport):
     # Write an adapter class to adapt the PDFReport class
-    # You'll need to "convert" the data - use a print statement: print("Converted json to xml")
+    # You'll need to "convert" the data (change "JSON" to "XML" and "Django" to "Jinja" in the strings)
     # Also, notice that some of the method names in WebReport and PDFReport are different
 
     def __init__(self, pdf_report: PDFReport):
-        self.pdf_report = pdf_report
-    
-    def _convert_json_to_xml(self, json_content):
-        print("Converting JSON data to XML")
-        xml_content = json_content
-        return xml_content
-    
-    def _convert_django_to_jinja_template(self, django_template):
-        print("Converting Django template to Jinja template")
-        jinja_template = django_template
-        return jinja_template
+      self.pdf_report = pdf_report
     
     def set_content(self, json_content):
-        xml_content = self._convert_json_to_xml(json_content)
-        self.pdf_report.set_xml_content(xml_content)
+      xml_content = json_content.replace("JSON", "XML")
+      self.pdf_report.set_xml_content(xml_content)
     
     def set_template(self, django_template):
-        jinja_template = self._convert_django_to_jinja_template(django_template)
+        jinja_template = django_template.replace("Django", "Jinja")
         self.pdf_report.set_jinja_template(jinja_template)
     
     def render(self):
@@ -64,39 +65,40 @@ class PDFReportAdapter(WebReport):
 
 class ReportClient:
 
-    def build_report(report, content, template) -> WebReport:
+    def build_report(report, content, template) -> BaseReport:
         report.set_content(content)
         report.set_template(template)
 
         return report
 
     
-    def render_report(report: WebReport):
+    def render_report(report: BaseReport):
         return report.render()
 
 
 def main():
     print("Data has arrived, generating reports!!")
 
-    report_client = ReportClient
+    json_content = "<Some awesome JSON content>"
+    django_template = "<A really beautiful Django Template>"
 
     print("\nGenerating a Web report")
-    web_report = report_client.build_report(
+    web_report = ReportClient.build_report(
         WebReport(),
-        "<Some awesome JSON content>",
-        "<A really beautiful Django Template>",
+        json_content,
+        django_template,
     )
-    report_client.render_report(web_report)
+    ReportClient.render_report(web_report)
 
     print("\nGenerating a PDF report")
     # Generate a PDF report here, using your new adapter class
     adapted_pdf_report = PDFReportAdapter(PDFReport())
-    pdf_report = report_client.build_report(
+    pdf_report = ReportClient.build_report(
         adapted_pdf_report,
-        "<Some interesting XML content>",
-        "<A rather pretty Jinja template>",
+        json_content,
+        django_template,
     )
-    report_client.render_report(pdf_report)
+    ReportClient.render_report(pdf_report)
 
 
 if __name__ == "__main__":
