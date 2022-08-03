@@ -21,7 +21,7 @@ Imagine that we get a new requirement that allows users to enter their phone num
 
 One possible solution would be to update our client code, but perhaps this isn't practical or possible. So, maybe we can update the package? Nope, also not possible. Well, this is where the Adapter Pattern comes in.
 
-We will create a new middle-layer class, SMSMessageAdapter, that implements the Email interface (no actual interface used in this example, for simplicity's sake and... Python!). This middle layer will be accessed by the client code and will make "adapted calls" to the SMSMessage class.
+We will create a new middle-layer class, SMSMessageAdapter, that implements the same interface as Email. This middle layer will be accessed by the client code and will make "adapted calls" to the SMSMessage class.
 
 ## Class Diagram:
 
